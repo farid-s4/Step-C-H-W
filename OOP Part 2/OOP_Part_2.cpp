@@ -1,6 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-
 
 class SuperVector
 {
@@ -18,22 +16,10 @@ public:
         _data = new int[_capacity];
         
     }
-
     
-    
-    SuperVector(const SuperVector& other) : _size(other._size), _capacity(other._capacity)
-    {
-        
-        _data = new int[_capacity];
-        for (size_t i = 0; i < _size; i++)
-        {
-            _data[i] = other._data[i];
-        }
-    }
-
     int Get(size_t index) const
     {
-        if (index <= _size && index >= 0)
+        if (index < _size)
         {
             return _data[index];
         }
@@ -64,10 +50,16 @@ public:
         
     }
 
-    void Pop(SuperVector &other)
+    void Pop(SuperVector other)
     {
-        _size = _size - 1;
-        ResizeArray(_capacity - 1);
+        if (_size > 0)
+        {
+            _size--;
+            if (_size < _capacity / 2)
+            {
+                ResizeArray(_capacity/2);
+            }
+        }
     }
     
     void Remove(SuperVector &other, size_t index)
@@ -76,14 +68,20 @@ public:
         {
             _data[i] = _data[i + 1];
         }
-
-        ResizeArray(_capacity - 1);
-        _size--;
+        
+        if (_size > 0)
+        {
+            _size--;
+            if (_size < _capacity / 2)
+            {
+                ResizeArray(_capacity/2);
+            }
+        }
     }
     
     void FillArray(SuperVector *other)
     {
-        for (int i = 0; i < _capacity; ++i)
+        for (size_t i = 0; i < _size; ++i)
         {
             _data[i] = i + 1;
         }
@@ -94,7 +92,7 @@ public:
     {
         if (_size == _capacity)
         {
-            ResizeArray(_capacity + 1);
+            ResizeArray(_capacity * 2);
         }
         index  -= 1;
         int* temp_data = new int [_capacity];
@@ -119,7 +117,7 @@ public:
     {
         if (_size == _capacity)
         {
-            ResizeArray(_capacity + 1);
+            ResizeArray(_capacity * 2);
         }
         
         _data[_size] = value;
@@ -135,7 +133,7 @@ public:
 
 void DisplayVector(const SuperVector& vector)
 {
-    for (int i = 0; i < vector.Size(); ++i)
+    for (size_t i = 0; i < vector.Size(); ++i)
     {
         std::cout<<vector.Get(i)<< " ";
     }
@@ -152,29 +150,29 @@ int main()
 
     DisplayVector(temp);
     
-    std::cout <<"Fill array" << std::endl;
+    std::cout <<"Fill array\n";
     
     temp.Remove(temp, 2);
 
     DisplayVector(temp);
 
-    std::cout <<"Remove"<< std::endl;
+    std::cout <<"Remove\n";
 
     temp.Insert(temp, 3, 999);
 
     DisplayVector(temp);
 
-    std::cout <<"Insert"<<std::endl;
+    std::cout <<"Insert\n";
 
     temp.PushBack(temp, 123);
 
     DisplayVector(temp);
 
-    std::cout <<"PushBack" <<std::endl;
+    std::cout <<"PushBack\n";
 
     temp.Set(temp, 2, 999);
     
     DisplayVector(temp);
-    std::cout <<"Set"<<std::endl;
+    std::cout <<"Set\n";
     return 0;       
 }
