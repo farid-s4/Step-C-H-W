@@ -16,6 +16,15 @@ public:
         _data = new int[_capacity];
         
     }
+
+    SuperVector(const SuperVector& other): _size(other._size), _capacity(other._capacity)
+    {
+        _data = new int[_capacity]; 
+        for (size_t i = 0; i < _size; i++)
+        {
+            _data[i] = other._data[i]; 
+        }
+    }
     
     int Get(size_t index) const
     {
