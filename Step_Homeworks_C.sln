@@ -4,6 +4,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Step_Homeworks_C", "Step_Ho
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OOP Part 2", "OOP Part 2\OOP Part 2.vcxproj", "{F68AD584-B570-4CD3-B6CA-48E158F57FB0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OOP Operators", "OOP Operators\OOP Operators.vcxproj", "{42004746-513D-4607-96A8-4A2F9BA7993A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -28,5 +30,13 @@ Global
 		{F68AD584-B570-4CD3-B6CA-48E158F57FB0}.Release|Win32.Build.0 = Release|Win32
 		{F68AD584-B570-4CD3-B6CA-48E158F57FB0}.Release|x64.ActiveCfg = Release|x64
 		{F68AD584-B570-4CD3-B6CA-48E158F57FB0}.Release|x64.Build.0 = Release|x64
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Debug|Win32.Build.0 = Debug|Win32
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Debug|x64.ActiveCfg = Debug|x64
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Debug|x64.Build.0 = Debug|x64
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Release|Win32.ActiveCfg = Release|Win32
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Release|Win32.Build.0 = Release|Win32
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Release|x64.ActiveCfg = Release|x64
+		{42004746-513D-4607-96A8-4A2F9BA7993A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
