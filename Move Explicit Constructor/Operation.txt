@@ -1,0 +1,45 @@
+Balance: 0
+Date: 18-03-2025 21:49
+Type: Transfer 
+Transfer sum: 50.000000
+
+Balance: 150
+Date: 18-03-2025 21:49
+Type: Transfer 
+Transfer sum: 50.000000
+
+Balance: 50
+Date: 18-03-2025 21:49
+Type: SetBalance 
+Transfer sum: 50.000000
+
+Balance: 150
+Date: 18-03-2025 21:49
+Type: SetBalance 
+Transfer sum: 150.000000
+
+Balance: 250
+Date: 18-03-2025 21:49
+Type: SetBalance 
+Transfer sum: 250.000000
+
+Balance: 0
+Date: 18-03-2025 21:49
+Type: Withdraw 
+Transfer sum: 50.000000
+
+Balance: 200
+Date: 18-03-2025 21:49
+Type: SetBalance 
+Transfer sum: 50.000000
+
+Balance: 150
+Date: 18-03-2025 21:49
+Type: Withdraw 
+Transfer sum: 50.000000
+
+Balance: 50
+Date: 18-03-2025 21:49
+Type: SetBalance 
+Transfer sum: 50.000000
+
