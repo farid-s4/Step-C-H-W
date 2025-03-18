@@ -69,35 +69,41 @@ public:
         strcpy(surname, "Unknown");
     }
 
-    
+    void RecordToFile(int operation ,float NewBalance)
+    {
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        FILE *file = fopen("Operation.txt", "a");
+
+        fprintf(file, "Balance: %d\n", account.get_balance());
+        fprintf(file, "Date: %02d-%02d-%d %02d:%02d\n", ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, ltm->tm_hour, ltm->tm_min);
+        switch (operation)
+        {
+        case 1:
+            fprintf(file, "Type: Transfer\n" );
+        case 2:
+            fprintf(file, "Type: SetBalance\n");
+        case 3:
+            fprintf(file, "Type: withdraw\n");
+        }
+        fprintf(file, "Transfer sum: %f\n", NewBalance);
+        fprintf(file, "\n");
+        fclose(file);
+    }
 
     void SetBalance(float NewBalance)
     {
         account.setBalance(NewBalance);
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        FILE *file = fopen("Operation.txt", "a");
-
-        fprintf(file, "Balance: %d\n", account.get_balance());
-        fprintf(file, "Date: %02d-%02d-%d %02d:%02d\n", ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, ltm->tm_hour, ltm->tm_min);
-        fprintf(file, "Type: SetBalance \n");
-        fprintf(file, "Transfer sum: %f\n", NewBalance);
-        fprintf(file, "\n");
+        RecordToFile(2, NewBalance);
+        
     }
     void withdraw(float NewBalance)
     {
         account.withdraw(NewBalance);
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        FILE *file = fopen("Operation.txt", "a");
-
-        fprintf(file, "Balance: %d\n", account.get_balance());
-        fprintf(file, "Date: %02d-%02d-%d %02d:%02d\n", ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, ltm->tm_hour, ltm->tm_min);
-        fprintf(file, "Type: Withdraw \n");
-        fprintf(file, "Transfer sum: %f\n", NewBalance);
-        fprintf(file, "\n");
-        
+        RecordToFile(3, NewBalance);
     }
+    
+    
     void DisplayBalance()
     {
         std::cout << "Balance: " << account.get_balance() << '\n';
@@ -119,17 +125,10 @@ public:
     {
         withdraw(NewBalance);
         other.SetBalance(NewBalance);
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        FILE *file = fopen("Operation.txt", "a");
-
-        fprintf(file, "Balance: %d\n", account.get_balance());
-        fprintf(file, "Date: %02d-%02d-%d %02d:%02d\n", ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, ltm->tm_hour, ltm->tm_min);
-        fprintf(file, "Type: Transfer \n");
-        fprintf(file, "Transfer sum: %f\n", NewBalance);
-        fprintf(file, "\n");
-        fclose(file);
+        RecordToFile(1, NewBalance);
+        
     }
+    
     
         
 };
@@ -141,13 +140,9 @@ void DisplayBalance(const BankAccount& other)
 
 int main(){
 
-    Customer customer1, customer2, customer3;
+    Customer customer1, customer2;
     customer1.SetBalance(50);
-    customer2.SetBalance(150);
-    customer3.SetBalance(250);
-
     customer1.transfer(customer2, 50);
-    customer2.transfer(customer1, 50);
     customer1.DisplayBalance();
     customer2.DisplayBalance();
     
