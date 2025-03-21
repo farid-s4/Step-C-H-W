@@ -88,11 +88,11 @@ public:
         }
     }
     
-    void FillArray(SuperVector *other)
+    void FillArray(SuperVector* other)
     {
         for (size_t i = 0; i < _size; ++i)
         {
-            _data[i] = i + 1;
+            _data[i] = i+1;
         }
 
     }
@@ -140,7 +140,10 @@ public:
 
     size_t operator[](size_t index)
     {
-        return _data[index];
+        if (index <= _size) {
+            return _data[index];
+        }
+        
     }
 
     SuperVector& operator+(SuperVector &other)
@@ -169,11 +172,34 @@ public:
     }
     SuperVector& operator/(SuperVector &other)
     {
-        for (size_t i = 0; i < _size; i++)
+        bool flag = true;
+        for (size_t i = 0; i < other._size; i++)
         {
-            _data[i] /= other._data[i];
+            if (other._data[i] == 0) {
+                flag = false;
+                
+            }
         }
-        return *this;
+        if (flag == true) {
+            if (_size <= other._size) {
+                for (size_t i = 0; i < _size; i++)
+                {
+                    _data[i] /= other._data[i];
+                }
+                return *this;
+            }
+            else {
+                for (size_t i = 0; i < other._size; i++)
+                {
+                    _data[i] /= other._data[i];
+                }
+                return *this;
+            }
+        }
+        else {
+            return other;
+        }
+
     }
 
     
@@ -201,8 +227,8 @@ int main()
     
     other.FillArray(&other);
     
-    DisplayVector(other /  temp);
-    
-    
+    DisplayVector(temp / other);
+
+   
     return 0;       
 }

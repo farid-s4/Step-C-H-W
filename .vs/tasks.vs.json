@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "задача-OverloadSuperVector",
+      "appliesTo": "OverloadSuperVector/OverloadSuperVector.cpp",
+      "type": "launch"
+    }
+  ]
+}
