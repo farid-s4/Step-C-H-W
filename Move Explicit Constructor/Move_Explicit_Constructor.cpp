@@ -81,10 +81,13 @@ public:
         {
         case 1:
             fprintf(file, "Type: Transfer\n" );
+            break;
         case 2:
             fprintf(file, "Type: SetBalance\n");
+            break;
         case 3:
             fprintf(file, "Type: withdraw\n");
+            break;
         }
         fprintf(file, "Transfer sum: %f\n", NewBalance);
         fprintf(file, "\n");
@@ -128,9 +131,6 @@ public:
         RecordToFile(1, NewBalance);
         
     }
-    
-    
-        
 };
 
 void DisplayBalance(const BankAccount& other)
@@ -139,13 +139,9 @@ void DisplayBalance(const BankAccount& other)
 }
 
 int main(){
-
     Customer customer1, customer2;
-    customer1.SetBalance(50);
-    customer1.transfer(customer2, 50);
-    customer1.DisplayBalance();
-    customer2.DisplayBalance();
-    
-    
+    customer1.SetName("John");
+    customer1.DisplayInfo();
+    customer1.transfer(customer2, 100);
     return 0;
 }

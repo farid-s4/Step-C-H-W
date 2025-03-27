@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OverloadSuperVector", "Over
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Move Explicit Constructor", "Move Explicit Constructor\Move Explicit Constructor.vcxproj", "{77BDCAC4-01E3-46C5-A508-70BBF282A5C8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OOP Inheritance", "OOP Inheritance\OOP Inheritance.vcxproj", "{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -58,5 +60,13 @@ Global
 		{77BDCAC4-01E3-46C5-A508-70BBF282A5C8}.Release|Win32.Build.0 = Release|Win32
 		{77BDCAC4-01E3-46C5-A508-70BBF282A5C8}.Release|x64.ActiveCfg = Release|x64
 		{77BDCAC4-01E3-46C5-A508-70BBF282A5C8}.Release|x64.Build.0 = Release|x64
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Debug|Win32.Build.0 = Debug|Win32
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Debug|x64.ActiveCfg = Debug|x64
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Debug|x64.Build.0 = Debug|x64
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|Win32.ActiveCfg = Release|Win32
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|Win32.Build.0 = Release|Win32
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|x64.ActiveCfg = Release|x64
+		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
