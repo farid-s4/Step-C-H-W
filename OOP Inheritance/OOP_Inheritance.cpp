@@ -217,7 +217,7 @@ public:
     bool removeAnimal(int index)
     {
         if (index >= 0 && index < _animalCount) {
-            _animals[index] = _animals[_animalCount - 1]; 
+            _animals[index] = _animals[_animalCount - 1];
             _animalCount--;
 
             if (_animalCount <= _capacity / 2 && _capacity > 1) {  
@@ -240,9 +240,10 @@ public:
 
     ~Enclosure()
     {
+        std::cout << "~Enclosure()\n";
         delete[] _animals;
+        std::cout << "~Enclosure()-1\n";
     }
-    
 };
 
 class Zoo {
@@ -263,7 +264,7 @@ private:
         _capacity = NewCapacity;
     }
 public:
-    Zoo () :_enclosures(nullptr), _enclosureCount(0), _capacity(0) {}
+    Zoo() : _enclosures(nullptr), _enclosureCount(0), _capacity(1) {}
     explicit Zoo(int enclosureCount) : _enclosureCount(enclosureCount) , _capacity(enclosureCount)
     {
         _enclosures = new Enclosure[_capacity];
@@ -297,7 +298,9 @@ public:
 
     ~Zoo()
     {
+        std::cout << "~Zoo" << '\n';
         delete[] _enclosures;
+        std::cout << "~Zoo-1" << '\n';
     }
 };
 int main() {
@@ -340,16 +343,16 @@ int main() {
     worker.printInfo();
 
 
-    Enclosure enclosure(2);
+    Enclosure enclosure(3);
     enclosure.addAnimal(animal1);
-    enclosure.addAnimal(mammal);
-    enclosure.printEnclosureInfo();
+
+
 
     enclosure.removeAnimal(0);  
-    enclosure.printEnclosureInfo();
 
 
-    Zoo zoo(2);
+    
+    Zoo zoo(1);
     zoo.addEnclosure(enclosure);
     zoo.printZooInfo();
 }

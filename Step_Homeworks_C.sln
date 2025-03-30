@@ -12,6 +12,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Move Explicit Constructor",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OOP Inheritance", "OOP Inheritance\OOP Inheritance.vcxproj", "{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Smart Poiters", "Smart Poiters\Smart Poiters.vcxproj", "{B04990AD-C617-4657-B8CE-B49A65445A7B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnakeGame", "SnakeGame\SnakeGame.vcxproj", "{BE29CD79-51CA-4411-8964-A89F762E1422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -68,5 +72,21 @@ Global
 		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|Win32.Build.0 = Release|Win32
 		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|x64.ActiveCfg = Release|x64
 		{DFEBFCA8-2FB5-4BD8-B9F3-4323085BC591}.Release|x64.Build.0 = Release|x64
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Debug|Win32.Build.0 = Debug|Win32
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Debug|x64.ActiveCfg = Debug|x64
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Debug|x64.Build.0 = Debug|x64
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Release|Win32.ActiveCfg = Release|Win32
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Release|Win32.Build.0 = Release|Win32
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Release|x64.ActiveCfg = Release|x64
+		{B04990AD-C617-4657-B8CE-B49A65445A7B}.Release|x64.Build.0 = Release|x64
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Debug|Win32.Build.0 = Debug|Win32
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Debug|x64.ActiveCfg = Debug|x64
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Debug|x64.Build.0 = Debug|x64
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Release|Win32.ActiveCfg = Release|Win32
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Release|Win32.Build.0 = Release|Win32
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Release|x64.ActiveCfg = Release|x64
+		{BE29CD79-51CA-4411-8964-A89F762E1422}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

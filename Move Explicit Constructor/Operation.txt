@@ -118,3 +118,18 @@ Date: 27-03-2025 17:57
 Type: Transfer
 Transfer sum: 100.000000
 
+Balance: 0
+Date: 28-03-2025 00:29
+Type: withdraw
+Transfer sum: 100.000000
+
+Balance: 100
+Date: 28-03-2025 00:29
+Type: SetBalance
+Transfer sum: 100.000000
+
+Balance: 0
+Date: 28-03-2025 00:29
+Type: Transfer
+Transfer sum: 100.000000
+
