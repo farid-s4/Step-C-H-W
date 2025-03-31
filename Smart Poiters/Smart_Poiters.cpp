@@ -1,3 +1,4 @@
+
 /*#include <iostream>
 template <typename T>
 class UniquePtr
@@ -5,100 +6,94 @@ class UniquePtr
 private:
     T* ptr;
 public:
-    UniquePtr() noexcept : ptr(nullptr) {}
-    explicit UniquePtr(T* ptr) noexcept : ptr(ptr) {}
-    UniquePtr(const UniquePtr& other) = delete;
-    UniquePtr& operator=(const UniquePtr& other) = delete;
-    UniquePtr(UniquePtr&& other) noexcept : ptr(other.ptr)
-    {
-        other.ptr = nullptr;
-    }
-    UniquePtr& operator=(UniquePtr&& other) noexcept
+    UniquePtr() : ptr(nullptr) {}
+    UniquePtr(T* ptr) : ptr(ptr) {}
+    UniquePtr(UniquePtr<T>&& other) noexcept 
     {
         ptr = other.ptr;
         other.ptr = nullptr;
+    }
+    UniquePtr<T>& operator=(UniquePtr<T>&& other) noexcept
+    {
+        if (this != &other)
+        {
+            delete ptr;
+            ptr = other.ptr;
+            other.ptr = nullptr;
+        }
+        return *this;
+    }
+    T* get () 
+    {
+        return ptr;
+    }
+    T& operator* () const 
+    {
+        return *ptr;
+    }
+    T* operator-> () const
+    {
+        return ptr;
+    }
+    void reset()
+    {
+        delete ptr;
+        ptr = nullptr;
     }
     ~UniquePtr()
     {
         delete ptr;
     }
-    T* get()
-    {
-        return ptr;
-    }
-    T* operator->()
-    {
-        return ptr;
-    }
-    T& operator*()
-    {
-        return *ptr;
-    }
-    void reset(T* p = nullptr)  noexcept
-    {
-        if (p != ptr)
-        {
-            delete ptr;
-            ptr = p;
-        }
-    }
 };
 
+int main()
+{
+    UniquePtr<int> up1(new int(10));
+    std::cout << *up1 << '\n'; 
 
-int main() {
+
+    UniquePtr<int> up2(std::move(up1));
+    if (!up1.get())
+        std::cout << "up1 is empty\n"; 
+    
+    std::cout << *up2 << '\n'; 
+    up2.reset();
+    if (!up2.get())
+        std::cout << "up2 is empty\n"; 
+
     return 0;
-}
+}*/
 
-/////////////////////////////////////////////////////////*/
 #include <iostream>
-#include <cassert>
 template <typename T>
 class SharedPtr
 {
 private:
     T* ptr;
-    int* count;
+    unsigned int* count;
+    
 public:
-    SharedPtr() noexcept : ptr(nullptr), count(new int(0)) {}
-    explicit SharedPtr(T* ptr) noexcept : ptr(ptr) {}
-    SharedPtr(const SharedPtr& other)
-    {
-        ptr = other.ptr;
-        count++;
-    }
-    SharedPtr& operator=(const SharedPtr& other)
-    {
-        if (this != &other)
-        {
-            ptr = other.ptr;
-            count++;
-        }
-    }
-    SharedPtr(SharedPtr&& other) noexcept : ptr(other.ptr), count(other.count)
-    {
-        other.ptr = nullptr;
-        count = nullptr;
-    }
-    SharedPtr& operator=(SharedPtr&& other) noexcept
+    explicit SharedPtr() : ptr(nullptr), count(new unsigned int(1)) {}
+
+    SharedPtr(const SharedPtr<T>& other)
     {
         ptr = other.ptr;
         count = other.count;
+        ++(*count);
     }
-    ~SharedPtr()
+    SharedPtr& operator=(const SharedPtr<T>& other)
     {
-        if (count != 0)
+        if (this != &other)
         {
-            count--;
-        }
-        if (count == 0)
-        {
+            delete count;
+            count = other.count;
             delete ptr;
+            ptr = other.ptr;
+            --(*count);
+            return SharedPtr<T>(*this);
         }
     }
-    int GetCount() const noexcept
-    {
-        return *count;
-    }
+
     T* get()
     {
         return ptr;
@@ -111,18 +106,23 @@ public:
     {
         return *ptr;
     }
-    void reset(T* p = nullptr)  noexcept
+    void reset()
     {
-        if (p != ptr)
+        delete ptr;
+        delete count;
+        ptr = nullptr;
+        count = 0;
+    }
+    ~SharedPtr()
+    {
+        if (ptr && --(*count) == 0)
         {
             delete ptr;
-            ptr = p;
-            count--;
+            delete count;
         }
     }
 };
-
-
-int main() {
-    return 0;
+int main()
+{
+    
 }
