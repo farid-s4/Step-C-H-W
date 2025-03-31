@@ -20,45 +20,57 @@ struct Coordinate
 };
 
 int fieldWidth, fieldHeight;
+int score, difficulty;
+bool isValidFieldDifficulty(int value) {
+    return value >= 1 && value <= 3;
+}
 
 
 bool isValidFieldSize(int value)
 {
-    return value>= 10 && value <= 100;
+    return value >= 10 && value <= 100;
 }
 
 void FieldInput()
 {
     do
     {
-        std::cout<< "Enter the width of the field [10-100]";
-        std::cin>>fieldWidth;
+        std::cout << "Enter the width of the field [10-100]";
+        std::cin >> fieldWidth;
 
         if (!isValidFieldSize(fieldWidth))
         {
-            std::cout<< "Invalid input! Width must be between 10 and 100\n";
+            std::cout << "Invalid input! Width must be between 10 and 100\n";
         }
-        
-    }
-    while (!isValidFieldSize(fieldWidth));
+
+    } while (!isValidFieldSize(fieldWidth));
 
     do
     {
-        std::cout<< "Enter the height of the field [10-100]";
-        std::cin>>fieldHeight;
+        std::cout << "Enter the height of the field [10-100]";
+        std::cin >> fieldHeight;
 
         if (!isValidFieldSize(fieldHeight))
         {
-            std::cout<< "Invalid input! Height must be between 10 and 100\n";
+            std::cout << "Invalid input! Height must be between 10 and 100\n";
         }
-        
+
+    } while (!isValidFieldSize(fieldHeight));
+    do
+    {
+        std::cout << "Select difficulty level [1-3]";
+        std::cin >> difficulty;
+        if (!isValidFieldDifficulty(difficulty))
+        {
+            std::cout << "Invalid input! Difficulty must be between 1 and 3\n";
+        }
     }
-    while (!isValidFieldSize(fieldHeight));
+    while (!isValidFieldDifficulty(difficulty));
 }
 
 char** CreateField()
 {
-    char** field = new char*[fieldHeight];
+    char** field = new char* [fieldHeight];
     for (int i = 0; i < fieldHeight; ++i)
     {
         field[i] = new char[fieldWidth];
@@ -95,8 +107,8 @@ void DrawField(char** field)
     {
         for (int j = 0; j < fieldWidth; ++j)
         {
-            std::cout<< field[i][j];
-        }std::cout<<"\n";
+            std::cout << field[i][j];
+        }std::cout << "\n";
     }
 }
 
@@ -107,8 +119,24 @@ void GenerateFood(char** field, Coordinate& food)
 
     field[food.y][food.x] = '*';
 }
+void GenerateBigFood(char** field, Coordinate& big_food)
+{
+    big_food.x = rand() % (fieldWidth - 2) + 1;
+    big_food.y = rand() % (fieldHeight - 2) + 1;
 
-void UpdateField(char** field, const Coordinate* snake, int snakeLength, const Coordinate& food)
+    field[big_food.y][big_food.x] = '$';
+}
+
+void GenerateWool(char** field, Coordinate& wool)
+{
+    
+    wool.x = rand() % (fieldWidth - 2) + 1;
+    wool.y = rand() % (fieldHeight - 2) + 1;
+    field[wool.y][wool.x] = '#';
+    
+}
+
+void UpdateField(char** field, const Coordinate* snake, int snakeLength, const Coordinate& food, const Coordinate& big_food)
 {
     for (int i = 0; i < fieldHeight; ++i)
     {
@@ -120,13 +148,14 @@ void UpdateField(char** field, const Coordinate* snake, int snakeLength, const C
             }
         }
     }
-    
+
     for (int i = 0; i < snakeLength; ++i)
     {
         field[snake[i].y][snake[i].x] = 'O';
     }
 
     field[food.y][food.x] = '*';
+    field[big_food.y][big_food.x] = '$';
 }
 
 void MoveSnake(Coordinate* snake, int& snakeLength, Direction dir)
@@ -134,10 +163,10 @@ void MoveSnake(Coordinate* snake, int& snakeLength, Direction dir)
     Coordinate newHead = snake[0];
     switch (dir)
     {
-        case UP:    newHead.y--; break;
-        case DOWN:  newHead.y++; break;
-        case LEFT:  newHead.x--; break;
-        case RIGHT: newHead.x++; break;
+    case UP:    newHead.y--; break;
+    case DOWN:  newHead.y++; break;
+    case LEFT:  newHead.x--; break;
+    case RIGHT: newHead.x++; break;
     }
 
     for (int i = snakeLength - 1; i > 0; --i)
@@ -148,9 +177,9 @@ void MoveSnake(Coordinate* snake, int& snakeLength, Direction dir)
     snake[0] = newHead;
 }
 
-bool CheckCollisions(const Coordinate* snake, int snakeLength)
+bool CheckCollisions(const Coordinate* snake, int snakeLength, const Coordinate& wool)
 {
-    if(snake[0].x < 0 || snake[0].x >= fieldWidth || snake[0].y < 0 || snake[0].y >= fieldHeight)
+    if (snake[0].x < 0 || snake[0].x >= fieldWidth || snake[0].y < 0 || snake[0].y >= fieldHeight)
     {
         return true;
     }
@@ -162,64 +191,125 @@ bool CheckCollisions(const Coordinate* snake, int snakeLength)
             return true;
         }
     }
-
+    if (snake[0].x  == wool.x && snake[0].y == wool.y)
+    {
+        return true;
+    }
     return false;
 }
 
-void GrowSnake(Coordinate*& snake, int& snakeLength)
+void GrowSnake(Coordinate*& snake, int& snakeLength, int factor)
 {
-    Coordinate* tempSnake = new Coordinate[snakeLength + 1];
-    for (int i = 0; i < snakeLength; ++i)
+    if (factor == 1)
     {
-        tempSnake[i] = snake[i];
+        snakeLength++;
+        Coordinate* tempSnake = new Coordinate[snakeLength];
+        for (int i = 0; i < snakeLength - 1; ++i)
+        {
+            tempSnake[i] = snake[i];
+        }
+        tempSnake[snakeLength - 1] = tempSnake[snakeLength - 2];
+        delete[] snake;
+        snake = tempSnake;
+        score += 10;
     }
-    delete[] snake;
-    snake = tempSnake;
-    snakeLength++;
-}
+    if (factor == 2)
+    {
+        snakeLength += 2;
+        Coordinate* tempSnake = new Coordinate[snakeLength];
+        for (int i = 0; i < snakeLength - 2; ++i) {
+            tempSnake[i] = snake[i];
+        }
+        Coordinate tail = tempSnake[snakeLength - 3]; 
+        tempSnake[snakeLength - 2] = tail;
+        tempSnake[snakeLength - 1] = tail;
 
+        delete[] snake;
+
+        snake = tempSnake;
+
+        score += 20;
+    }
+    
+}
+Direction userInput = UP;
 Direction GetUserInput()
 {
     
     if (_kbhit())
     {
         char input = _getch();
-        if (input == 'w') return UP;
-        if (input == 's') return DOWN;
-        if (input == 'a') return LEFT;
-        if (input == 'd') return RIGHT;
+        if (input == 'w')
+        {
+            userInput = UP;
+            return UP;
+        }
+        if (input == 's')
+        {
+            userInput = DOWN;
+            return DOWN;
+        }
+        if (input == 'a')
+        {
+            userInput = LEFT;
+            return LEFT;
+        }
+        if (input == 'd')
+        {
+            userInput = RIGHT;
+            return RIGHT;
+        }
     }
+    
+    return userInput;
 
-    //return RIGHT;
 }
 
-void GameLoop(char** field, Coordinate*& snake, int& snakeLength, Coordinate& food)
+void GameLoop(char** field, Coordinate*& snake, int& snakeLength, Coordinate& food , Coordinate& wool, Coordinate& big_food)
 {
-    Direction dir = RIGHT;
+
     bool gameOver = false;
 
     while (!gameOver)
     {
-        DrawField(field);
-        UpdateField(field, snake, snakeLength, food);
-        
-        MoveSnake(snake, snakeLength, dir);
 
-        if (CheckCollisions(snake, snakeLength))
+        Direction dir = GetUserInput();
+        DrawField(field);
+        UpdateField(field, snake, snakeLength, food, big_food);
+
+        MoveSnake(snake, snakeLength, dir);
+        if (CheckCollisions(snake, snakeLength, wool))
         {
             gameOver = true;
-            std::cout<<"Game over!\n";
+            std::cout << "Game over!\n";
+            std::cout << "Score: " << score << "\n";
             break;
         }
-
+        
         if (snake[0].x == food.x && snake[0].y == food.y)
         {
-            GrowSnake(snake, snakeLength);
+            GrowSnake(snake, snakeLength, 1);
             GenerateFood(field, food);
         }
+        if (snake[0].x == big_food.x && snake[0].y == big_food.y)
+        {
+            GrowSnake(snake, snakeLength, 2);
+            GenerateBigFood(field, big_food);
+        }
+        std::cout << "Score: " << score << "\n";
 
-        dir = GetUserInput();
-        Sleep(100);
+
+        switch (difficulty) {
+        case 1:
+            Sleep(200);
+            break;
+        case 2:
+            Sleep(100);
+            break;
+        case 3:
+            Sleep(80);
+            break;
+        }
     }
 }
 
@@ -231,14 +321,18 @@ void InitGame()
     char** field = CreateField();
     int snakeLength = 1;
     Coordinate* snake = new Coordinate[snakeLength];
-    snake[0] = {fieldWidth/2, fieldHeight/2};
+    snake[0] = { fieldWidth / 2, fieldHeight / 2 };
 
     Coordinate food;
+    Coordinate wool;
+    Coordinate big_food;
     GenerateFood(field, food);
-    GameLoop(field, snake, snakeLength, food);
+    GenerateWool(field, wool);
+    GenerateBigFood(field, big_food);
+    GameLoop(field, snake, snakeLength, food, wool, big_food);
     delete[] snake;
     DeleteField(field);
-    
+
 }
 
 
@@ -247,6 +341,8 @@ void InitGame()
 int main()
 {
     InitGame();
+
+
     // fieldHeight = 10;
     // fieldWidth = 10;
     //FieldInput();
