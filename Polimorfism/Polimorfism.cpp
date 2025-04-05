@@ -20,80 +20,101 @@ public:
     int getY() const { return _y; }
     void setX(int x){ _x = x; }
     void setY(int y){ _y = y; }
-    virtual void Movement(int x, int y){}
+    virtual bool Movement(int x, int y) = 0;
+    virtual ~Figure()
+    {
+        _x = 0;
+        _y = 0;
+    }
 };
 
 class Pawn : public Figure
 {
     public:
     Pawn(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) 
+    bool Movement(int x, int y) override
     {
         if (x==_x)
         {
             _y -= 1;
+            return true;
         }
+        return false;
     }
 };
 class Bishop : public Figure
 {
     public:
     Bishop(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) override
+    bool Movement(int x, int y) override
     {
         if (x == y)
         {
             _x = x;
             _y = y;
+            return true;
         }
+        return false;
     }
 };
 class Rook : public Figure
 {
     public:
     Rook(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) override
+    bool Movement(int x, int y) override
     {
         if (x == _x || y == _y || x == y)
         {
             _x = x;
             _y = y;
+            return true;
         }
+        return false;
     }
 };
 class Queen : public Figure
 {
     public:
     Queen(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) override
+    bool Movement(int x, int y) override
     {
         if (x == _x || y == _y || x == y)
         {
             _x = x;
             _y = y;
+            return true;
         }
+        return false;
     }
 };
-class king : public Figure
+class King : public Figure
 {
     public:
-    king(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) override
+    King(int x, int y) : Figure(x, y) {}
+    bool Movement(int x, int y) override
     {
         if ((x == _x + 1 || x == _x - 1 || x == _x) && (y == _y + 1 || y == _y - 1 || y == _y))
         {
             _x = x;
             _y = y;
+            return true;
         }
+        return false;
     }
 };
-class knight : public Figure
+class Knight : public Figure
 {
     public:
-    knight(int x, int y) : Figure(x, y) {}
-    void Movement(int x, int y) override
+    Knight(int x, int y) : Figure(x, y) {}
+    bool Movement(int x, int y) override
     {
-        
+        if (x == _x -2 && y == _y - 1 || x == _x + 2 && y == _y + 1 || x == _x -1 && y == _y - 2 || x == _x + 1 && y == _y + 2 )
+        {
+            _x = x;
+            _y = y;
+            return true;
+        }
+        return false;
     }
 };
 
@@ -117,25 +138,121 @@ void PrintBoard(char mass[8][8])
         std::cout << '\n';
     }
 }
-int main() {
-    
-    Queen queen( 4, 4);
-    const int size = 8;
-    char board[size][size];
-    UpdateBoard(board);
-    board[queen.getY()][queen.getX()] = '|';
-    PrintBoard(board);
 
-    queen.Movement(4, 1); 
-    std::cout << '\n';
+int main() {
+while (true)
+{
+    char board[8][8];
     UpdateBoard(board);
-    board[queen.getY()][queen.getX()] = '|';
-    PrintBoard(board);
-    
-    UpdateBoard(board);
-    queen.Movement(7, 7);
-    board[queen.getY()][queen.getX()] = '|';
-    std::cout << '\n';
-    PrintBoard(board);
-    return 0;
+    int x = 0, y = 0;
+    int figChoice = 0;
+
+    std::cout << "\nEnter coordinates for the figure (x y): ";
+    std::cin >> x >> y;
+
+    std::cout << "Choose figure:\n";
+    std::cout << "1 - Knight\n2 - Bishop\n3 - Rook\n4 - King\n5 - Queen\n6 - Pawn\n";
+    std::cin >> figChoice;
+
+    int newX = 0, newY = 0;
+    std::cout << "Enter new position to move (x y): ";
+    std::cin >> newX >> newY;
+    std::cout << "\nPlacing figure...\n";
+    switch (figChoice) {
+        case 1: {
+            Knight knight(x, y);
+            board[x][y] = 'P'; 
+            PrintBoard(board);
+            if (knight.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'P';
+                std::cout << "The figure knight moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        case 2: {
+            Bishop bishop(x, y);
+            board[x][y] = 'B';
+            PrintBoard(board);
+            if (bishop.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'B';
+                std::cout << "The figure bishop moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        case 3: {
+            Rook rook(x, y);
+            board[x][y] = 'R';
+            PrintBoard(board);
+            if (rook.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'R';
+                std::cout << "The figure rook moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        case 4: {
+            King king(x, y);
+            board[x][y] = 'K';
+            PrintBoard(board);
+            if (king.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'K';
+                std::cout << "The figure king moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        case 5: {
+            Queen queen(x, y);
+            board[x][y] = 'Q';
+            PrintBoard(board);
+            if (queen.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'Q';
+                std::cout << "The figure queen moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        case 6: {
+            Pawn pawn(x, y);
+            board[x][y] = 'P';
+            PrintBoard(board);
+            if (pawn.Movement(newX, newY)) {
+                UpdateBoard(board);
+                board[newX][newY] = 'P';
+                std::cout << "The figure pawn moved.\n";
+                PrintBoard(board);
+            } else {
+                std::cout << "Write correct coordinate\n";
+            }
+            break;
+        }
+
+        default:
+            std::cout << "Invalid choice!\n";
+            break;
+        }
+
+}
 }
