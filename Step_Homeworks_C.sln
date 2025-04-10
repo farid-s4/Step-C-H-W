@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnakeGame", "SnakeGame\Snak
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Polimorfism", "Polimorfism\Polimorfism.vcxproj", "{C875C049-18E8-43AE-B877-5289171EC432}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Try Catch", "Try Catch\Try Catch.vcxproj", "{B1B11520-32AB-421B-92A6-D8646BA216D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -98,5 +100,13 @@ Global
 		{C875C049-18E8-43AE-B877-5289171EC432}.Release|Win32.Build.0 = Release|Win32
 		{C875C049-18E8-43AE-B877-5289171EC432}.Release|x64.ActiveCfg = Release|x64
 		{C875C049-18E8-43AE-B877-5289171EC432}.Release|x64.Build.0 = Release|x64
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Debug|Win32.Build.0 = Debug|Win32
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Debug|x64.ActiveCfg = Debug|x64
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Debug|x64.Build.0 = Debug|x64
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Release|Win32.ActiveCfg = Release|Win32
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Release|Win32.Build.0 = Release|Win32
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Release|x64.ActiveCfg = Release|x64
+		{B1B11520-32AB-421B-92A6-D8646BA216D4}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
