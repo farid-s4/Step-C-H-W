@@ -1,99 +1,139 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <fstream>
 #include <bitset>
 #include <stdexcept>
+
+class FileException : public std::exception {
+public:
+    virtual const char* what() const noexcept override {
+        return "FileException";
+    }
+};
+class FileOpenException : public std::exception {
+public:
+    virtual const char* what() const noexcept override {
+        return "FileOpenException";
+    }
+};
+class FileReadException : public std::exception {
+public:
+    virtual const char* what() const noexcept override {
+        return "FileReadException";
+    }
+};
+
+
 class FileViewer
 {
 protected:
-    std::ifstream file;
+    FILE* file;
 public:
     virtual void Display(const char* path) = 0;
-    virtual ~FileViewer(){}
+    ~FileViewer() {
+        if (file) {
+            fclose(file);
+        }
+    }
 };
-
 class TextViewer : public FileViewer
 {
-    public:
+public:
     void Display(const char* path) override
     {
-        file.open(path);
-        if (!file.is_open())
-        {
-            throw std::exception("Could not open file");
-        }
-        char str[256]; 
-
-        while (file.getline(str, 256)) {
-            std::cout << str << '\n';
-        }
-
-        file.close();
-        
-    }
-};
-class AsciiViewer : public FileViewer
-{
-    public:
-    void Display(const char* path) override
-    {
-        file.open(path);
-        if (!file.is_open())
-        {
-            throw std::exception("Could not open file");
-        }
         char str[256];
-        while (file.getline(str, 256)) {
-            for (int i = 0; i < std::strlen(str); i++)
-            {
-                std::cout << (int)(unsigned char)str[i] << ' ';
-            }
-            std::cout << '\n';
+        if (file == fopen("file.txt", "r")) {
+            throw FileOpenException();
+        };
+
+
+        if (file == nullptr) {
+            throw FileException();
         }
 
-        file.close();
+        while (int count = fread(str, sizeof(char), sizeof(str), file)) {
+            str[count] = '\0';
+            std::cout << str;
+        }
+
+        if (ferror(file)) {
+            throw FileReadException();
+        }
+
+        fclose(file);
     }
 };
+
+class AsciViewer : public FileViewer
+{
+public:
+    void Display(const char* path) override
+    {
+        char str[256];
+        if (file == fopen("file.txt", "r")) {
+            throw FileOpenException();
+        };
+
+
+        if (file == nullptr) {
+            throw FileException();
+        }
+
+        while (int count = fread(str, sizeof(char), sizeof(str), file)) {
+            str[count] = '\0';
+            for (size_t i = 0; i < count; i++)
+            {
+                std::cout << static_cast<int>(str[i]);
+            }
+        }
+
+        if (ferror(file)) {
+            throw FileReadException();
+        }
+
+        fclose(file);
+    }
+};
+
 class BinaryViewer : public FileViewer
 {
-    public:
+public:
     void Display(const char* path) override
     {
-        file.open(path);
-        if (!file.is_open())
-        {
-            throw std::exception("Could not open file");
-        }
-        
         char str[256];
-        while (file.getline(str, 256))
-        {
-            for (int i = 0; i < std::strlen(str); i++)
+        if (file == fopen("file.txt", "r")) {
+            throw FileOpenException();
+        };
+
+        if (file == nullptr) {
+            throw FileException();
+        }
+
+        while (int count = fread(str, sizeof(char), sizeof(str), file)) {
+            str[count] = '\0';
+            for (size_t i = 0; i < count; i++)
             {
-                std::cout << std::bitset<8>(str[i]) << ' ';
+                std::cout << std::bitset<8>(str[i]);
             }
         }
-        file.close();
+
+        if (ferror(file)) {
+            throw FileReadException();
+        }
+
+        fclose(file);
     }
 };
 
-int main()
-{
-    const char* path = "file.txt";
-    const char* path2 = "file.txt";
-    const char* path3 = "file.txt";
+int main() {
+    TextViewer f;
     try
     {
-        TextViewer p;
-        p.Display(path);
+        f.Display("file.txt");
     }
-    catch (const std::exception& ex)
+    catch (const FileOpenException& e)
     {
-        std::cout << ex.what();
+        std::cout << e.what();
     }
-    try
-    {
-        BinaryViewer p;
-        p.Display(path2);
-    }
-    catch 
+    
 }
+

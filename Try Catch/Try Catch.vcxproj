@@ -156,9 +156,6 @@
   <ItemGroup>
     <ClCompile Include="Try_Catch.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="file.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
