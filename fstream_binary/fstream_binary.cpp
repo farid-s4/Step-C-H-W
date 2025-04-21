@@ -209,7 +209,7 @@ int main()
     
     std::string search;
     std::cout << "Write name for search: ";
-    std::getline(std::cin, search);
+    std::cin >> search;
     
     loaded.find_by_name(search);
     
