@@ -24,6 +24,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fstream_binary", "fstream_b
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedList", "LinkedList\LinkedList.vcxproj", "{F1B6EF87-90ED-4BA8-8DFC-2D163A33FBFA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedListIterators", "LinkedListIterators\LinkedListIterators.vcxproj", "{726F3192-96B9-4415-9E9E-7B09A443955A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -128,5 +130,13 @@ Global
 		{F1B6EF87-90ED-4BA8-8DFC-2D163A33FBFA}.Release|Win32.Build.0 = Release|Win32
 		{F1B6EF87-90ED-4BA8-8DFC-2D163A33FBFA}.Release|x64.ActiveCfg = Release|x64
 		{F1B6EF87-90ED-4BA8-8DFC-2D163A33FBFA}.Release|x64.Build.0 = Release|x64
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Debug|Win32.Build.0 = Debug|Win32
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Debug|x64.ActiveCfg = Debug|x64
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Debug|x64.Build.0 = Debug|x64
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Release|Win32.ActiveCfg = Release|Win32
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Release|Win32.Build.0 = Release|Win32
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Release|x64.ActiveCfg = Release|x64
+		{726F3192-96B9-4415-9E9E-7B09A443955A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
